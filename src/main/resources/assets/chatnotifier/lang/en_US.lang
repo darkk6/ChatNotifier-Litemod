@@ -1,0 +1,14 @@
+key.chatnotifier.hotkey=Toggle Chat Notifier
+key.chatnotifier.categories=Chat Notifier
+chatnotifier.msg.trayicon.fail=System tray icon init fail
+chatnotifier.msg.trayicon.showfail=Can NOT show tray icon
+chatnotifier.msg.trayicon.unsupport=Your OS platform not support TrayIcon
+chatnotifier.msg.trayicon.unscaled=Can NOT create scaled icon , use default.
+chatnotifier.msg.unableopenfile=Unable to open config file
+chatnotifier.msg.invalid.regexp=Regexp is invalid, skip : 
+chatnotifier.msg.noregexp=This rule has NO regexp , ingnored.
+chatnotifier.msg.rule.done=All rules loaded
+chatnotifier.msg.ruleloaderror=Load rules failed
+chatnotifier.msg.configloaded=Rules are loaded
+chatnotifier.msg.enabled=Chat Notifier enabled
+chatnotifier.msg.disabled=Chat Notifier disabled

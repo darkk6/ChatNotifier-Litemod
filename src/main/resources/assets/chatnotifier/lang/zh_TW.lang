@@ -1,0 +1,14 @@
+key.chatnotifier.hotkey=啟動/停止 Chat Notifier
+key.chatnotifier.categories=Chat Notifier
+chatnotifier.msg.trayicon.fail=系統列圖示初始化失敗
+chatnotifier.msg.trayicon.showfail=無法顯示系統列圖示
+chatnotifier.msg.trayicon.unsupport=作業系統不支援此功能
+chatnotifier.msg.trayicon.unscaled=無法取得適當圖示，改以原圖示顯示
+chatnotifier.msg.unableopenfile=無法開啟設定檔
+chatnotifier.msg.invalid.regexp=表示法格式有誤，跳過：
+chatnotifier.msg.noregexp=規則未指定表示法，跳過
+chatnotifier.msg.rule.done=規則解讀完畢
+chatnotifier.msg.ruleloaderror=讀取規則發生錯誤
+chatnotifier.msg.configloaded=已載入所有規則
+chatnotifier.msg.enabled=啟動 Chat Notifier
+chatnotifier.msg.disabled=停止 Chat Notifier
