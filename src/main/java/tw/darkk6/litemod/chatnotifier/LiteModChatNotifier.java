@@ -7,7 +7,6 @@ import java.io.PrintStream;
 import java.util.Scanner;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiMainMenu;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.util.text.ITextComponent;
 
@@ -30,6 +29,7 @@ public class LiteModChatNotifier implements ChatListener,Tickable,ShutdownListen
 	private static RuleParser parser;
 	private static long lastCfgModify=0L;
 	
+	private static boolean preInGame=false;
 	private static boolean isEnabled=false;
 	
 	@Override
@@ -66,9 +66,10 @@ public class LiteModChatNotifier implements ChatListener,Tickable,ShutdownListen
 				}
 			}
 		}
-		if(mc.currentScreen instanceof GuiMainMenu){
+		if( !inGame && preInGame!=inGame){
 			Notifier.hideIcon();
 			isEnabled=false;
+			preInGame=inGame;
 		}
 	}
 	@Override

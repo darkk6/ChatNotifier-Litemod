@@ -33,7 +33,7 @@ public class RuleParser{
 			ipt=new Scanner(cfgFile);
 			Rule tmpRule=null;
 			while(ipt.hasNextLine()){
-				if(tmpRule==null) tmpRule=new Rule(null,"Minecraft","$0",true,"INFO");
+				if(tmpRule==null) tmpRule=new Rule(null,"Minecraft","$0",true,500,"INFO");
 				String str=ipt.nextLine(),tmp=null;
 				
 				if(str.startsWith("#")){
@@ -68,6 +68,10 @@ public class RuleParser{
 				}else if(str.startsWith("icon:")){
 					tmp=str.replaceAll("icon:(.*)","$1");
 					tmpRule.setIconType(tmp);
+				}else if(str.startsWith("wait:")){
+					tmp=str.replaceAll("wait:(.*)","$1");
+					try{ tmpRule.setWait(Long.parseLong(tmp)); }
+					catch(Exception e){ tmpRule.setWait(500L); }
 				}
 			}
 		}catch(Exception e){
@@ -85,21 +89,23 @@ public class RuleParser{
 		private String title;
 		private String msg;
 		private int iconType=1;
+		private long wait=500L;
 		private boolean isShowAll=false;
 		private boolean isShow=true;
 		
-		public Rule(String ptn,String title,String msg,boolean show,String icon){
+		public Rule(String ptn,String title,String msg,boolean show,long wait,String icon){
 			if("*".equals(ptn)){
 				//代表要顯示所有訊息
 				isShowAll=true;
 			}else{
 				isShowAll=false;
 				this.ptn=checkPattern(ptn);
-				this.title=title;
-				this.msg=msg;
-				this.isShow=show;
-				setIconType(icon);
 			}
+			this.title=title;
+			this.msg=msg;
+			this.isShow=show;
+			this.wait=wait;
+			setIconType(icon);
 		}
 		
 		public String getPattern(){ return this.ptn; }
@@ -115,6 +121,7 @@ public class RuleParser{
 		public void setTitle(String title){ this.title=title; }
 		public void setMsg(String msg){ this.msg=msg; }
 		public void setIsShow(boolean isShow){ this.isShow=isShow; }
+		public void setWait(long wait){ this.wait=wait; }
 		public void setIconType(String icon){
 			if("NONE".equalsIgnoreCase(icon)) iconType=0;
 			else if("WARNING".equalsIgnoreCase(icon)) iconType=2;
@@ -125,7 +132,7 @@ public class RuleParser{
 		public Result parse(String input){
 			String resTitle="Minecraft",resMsg=input;
 			if(input==null) return null;
-			if(isShowAll) return new Result(resTitle,resMsg,iconType,true);
+			if(isShowAll) return new Result(resTitle,resMsg,iconType,wait,true);
 			
 			if(title==null) title="Minecraft";
 			if(msg==null) msg="$0";
@@ -148,7 +155,7 @@ public class RuleParser{
 						//沒有要顯示，隨便給就好
 						resTitle="";resMsg="";
 					}
-					return new Result(resTitle,resMsg,iconType,isShow);
+					return new Result(resTitle,resMsg,iconType,wait,isShow);
 				}catch(Exception e){
 					Log.info(e.getMessage());
 					return null;
@@ -176,15 +183,17 @@ public class RuleParser{
 		public String title;
 		public String msg;
 		public boolean show;
+		public long wait;
 		public TrayIcon.MessageType icon;
 		
-		public Result(String title,String msg,int icon){
-			this(title,msg,icon,true);
+		public Result(String title,String msg,long wait,int icon){
+			this(title,msg,icon,wait,true);
 		}
-		public Result(String title,String msg,int icon,boolean show){
+		public Result(String title,String msg,int icon,long wait,boolean show){
 			this.title=title;
 			this.msg=msg;
 			this.show=show;
+			this.wait=wait;
 			switch(icon){
 				case 0: this.icon=TrayIcon.MessageType.NONE;break;
 				case 2: this.icon=TrayIcon.MessageType.WARNING;break;
