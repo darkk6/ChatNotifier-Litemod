@@ -1,0 +1,7 @@
+ - v 1.0 - mc 1.10.2
+
+	Update to 1.10.2
+
+ - v 1.0 - mc 1.9.4
+
+	First release
